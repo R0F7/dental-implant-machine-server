@@ -233,7 +233,14 @@ async function run() {
     `,
       };
 
-      await transporter.sendMail(mailOptions);
+      // await transporter.sendMail(mailOptions);
+      try {
+  await transporter.sendMail(mailOptions);
+} catch (err) {
+  console.error("SMTP ERROR:", err);
+  throw err;
+}
+
     };
 
     // update user

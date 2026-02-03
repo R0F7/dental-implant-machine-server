@@ -185,7 +185,7 @@ async function run() {
               url: "https://dental-implant-machine.up.railway.app",
             });
 
-          // await sendWelcomeEmail(email, name, tempPassword, resetLink);
+          await sendWelcomeEmail(email, name, tempPassword, resetLink);
 
           const db_user = await usersCollection.insertOne({
             ...formData,
@@ -216,6 +216,8 @@ async function run() {
           pass: process.env.SMTP_PASS,
         },
       });
+
+      console.log("user", process.env.SMTP_USER, "pass", process.env.SMTP_PASS);
 
       const mailOptions = {
         from: '"DIM Dashboard" <no-reply@dim.com>',
@@ -818,7 +820,7 @@ async function run() {
     // });
 
     // multiple clinics with empty clinicIds handle
-    app.get("/opportunities",verifyToken, async (req, res) => {
+    app.get("/opportunities", verifyToken, async (req, res) => {
       const { from, to, clinicIds } = req.query;
 
       const ids = clinicIds ? JSON.parse(clinicIds) : [];
@@ -996,7 +998,7 @@ async function run() {
     //   }
     // });
 
-    app.get("/messages",verifyToken, async (req, res) => {
+    app.get("/messages", verifyToken, async (req, res) => {
       try {
         const { from, to, clinicIds } = req.query;
         console.log(from, to);

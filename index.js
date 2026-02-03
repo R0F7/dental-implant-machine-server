@@ -185,7 +185,7 @@ async function run() {
               url: "https://dental-implant-machine.up.railway.app",
             });
 
-          await sendWelcomeEmail(email, name, tempPassword, resetLink);
+          // await sendWelcomeEmail(email, name, tempPassword, resetLink);
 
           const db_user = await usersCollection.insertOne({
             ...formData,

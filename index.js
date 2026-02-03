@@ -209,8 +209,10 @@ async function run() {
     const sendWelcomeEmail = async (email, name, tempPassword, resetLink) => {
       const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
+        // port: 465,
+        // secure: true,
+        port: 587,
+        secure: false,
         auth: {
           user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASS,
@@ -235,12 +237,11 @@ async function run() {
 
       // await transporter.sendMail(mailOptions);
       try {
-  await transporter.sendMail(mailOptions);
-} catch (err) {
-  console.error("SMTP ERROR:", err);
-  throw err;
-}
-
+        await transporter.sendMail(mailOptions);
+      } catch (err) {
+        console.error("SMTP ERROR:", err);
+        throw err;
+      }
     };
 
     // update user

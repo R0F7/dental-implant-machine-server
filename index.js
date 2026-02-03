@@ -181,7 +181,8 @@ async function run() {
           const resetLink = await admin
             .auth()
             .generatePasswordResetLink(email, {
-              url: "https://dental-implant-machine-5977.vercel.app",
+              // url: "https://dental-implant-machine-5977.vercel.app",
+              url: "https://dental-implant-machine.up.railway.app",
             });
 
           await sendWelcomeEmail(email, name, tempPassword, resetLink);
@@ -817,7 +818,7 @@ async function run() {
     // });
 
     // multiple clinics with empty clinicIds handle
-    app.get("/opportunities", async (req, res) => {
+    app.get("/opportunities",verifyToken, async (req, res) => {
       const { from, to, clinicIds } = req.query;
 
       const ids = clinicIds ? JSON.parse(clinicIds) : [];
@@ -995,7 +996,7 @@ async function run() {
     //   }
     // });
 
-    app.get("/messages", async (req, res) => {
+    app.get("/messages",verifyToken, async (req, res) => {
       try {
         const { from, to, clinicIds } = req.query;
         console.log(from, to);

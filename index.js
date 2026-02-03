@@ -217,11 +217,19 @@ async function run() {
       //   },
       // });
       const transporter = nodemailer.createTransport({
-  service: "gmail", // Direct service name
+  service: "gmail",
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS, // App Password
   },
+  // Extra security handshake logic
+  pool: true, // Connection reuse korar jonno
+  maxConnections: 1, 
+  maxMessages: Infinity,
+  tls: {
+    // Eita Railway theke connection handshake-e help korbe
+    rejectUnauthorized: false
+  }
 });
 
       console.log("user", process.env.SMTP_USER, "pass", process.env.SMTP_PASS);
